@@ -12,6 +12,7 @@ end
 application app_path do
   javascript "4"
   environment.update("PORT" => "80")
+  environment.update(app["environment"])
 
   git app_path do
     repository app["app_source"]["url"]
@@ -23,5 +24,7 @@ application app_path do
   end
 
   npm_install
-  npm_start
+  npm_start do
+    action [:stop, :enable, :start]
+  end
 end
